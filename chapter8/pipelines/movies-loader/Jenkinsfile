@@ -4,11 +4,13 @@ node('workers'){
     stage('Checkout'){
         checkout scm
     }
-    dir('/chapter8/pipelines/movies-loader'){
-        sh "pwd"
-    } 
+ 
     stage('Unit Tests'){
-        sh "docker build -t ${imageName}-test -f Dockerfile.test ."
-        sh "docker run --rm ${imageName}-test"
+        dir("${WORKSPACE}/chapter8/pipelines/movies-loader") {
+            def imageTest= docker.build("${imageName}-test","-f Dockerfile.test .")
+            imageTest.inside{
+                sh 'python test_main.py'
+            }
+        }
     }
 }
