@@ -4,9 +4,11 @@ node('workers'){
     stage('Checkout'){
         checkout scm
     }
- 
+    dir('/chapter8/pipelines/movies-loader'){
+        sh "pwd"
+    } 
     stage('Unit Tests'){
-        sh "docker build -t ${imageName}-test -f /chapter8/pipelines/movies-loader/Dockerfile.test ."
+        sh "docker build -t ${imageName}-test -f Dockerfile.test ."
         sh "docker run --rm ${imageName}-test"
     }
 }
