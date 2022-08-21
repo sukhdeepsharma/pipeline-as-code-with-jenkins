@@ -12,3 +12,4 @@ node('workers'){
         junit "$PWD/reports/*.xml"
         }
     }
+}
