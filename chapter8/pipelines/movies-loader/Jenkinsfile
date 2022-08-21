@@ -6,7 +6,7 @@ node('workers'){
     }
  
     stage('Unit Tests'){
-        sh "docker -v /var/run/docker.sock:/var/run/docker.sock build -t ${imageName}-test -f Dockerfile.test ."
-        sh "docker -v /var/run/docker.sock:/var/run/docker.sock run --rm ${imageName}-test"
+        sh "docker build -t ${imageName}-test -f Dockerfile.test ."
+        sh "docker run --rm ${imageName}-test"
     }
 }
